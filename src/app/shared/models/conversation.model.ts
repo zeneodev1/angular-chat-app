@@ -1,5 +1,5 @@
-import { Message } from './message';
-import { User } from './user';
+import { Message } from './message.model';
+import { User } from './user.model';
 
 export class Conversation {
   constructor(

@@ -1,5 +1,5 @@
-import { User } from './user';
-import { MessageStatus } from './message-status';
+import { User } from './user.model';
+import { MessageStatus } from './message-status.model';
 
 export class Message {
   constructor(

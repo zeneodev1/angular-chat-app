@@ -1,4 +1,6 @@
-import { User } from './../../shared/models/user';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { User } from '../../shared/models/user.model';
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -7,27 +9,39 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserService {
-  url = environment.apiUrl + 'user/';
+  apiUrl = environment.apiUrl + 'user/';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
+
+  public register(user: User): Observable<any> {
+    return this.httpClient.post(this.apiUrl + '/auth/register', user);
+  }
+
+  public login(user: User): Observable<any> {
+    return this.httpClient.post(this.apiUrl + '/login', user, {
+      observe: 'body',
+      responseType: 'text',
+    });
+  }
 
   getAllUsers() {
-    return this.httpClient.get(this.url);
+    return this.httpClient.get(this.apiUrl);
   }
 
   getUserById(id: any) {
-    return this.httpClient.get(this.url + id);
-  }
-
-  saveUser(user: User) {
-    return this.httpClient.post(this.url, user);
+    return this.httpClient.get(this.apiUrl + id);
   }
 
   editUser(user: User) {
-    return this.httpClient.put(this.url, user);
+    return this.httpClient.put(this.apiUrl, user);
   }
 
   deleteUser(id: any) {
-    return this.httpClient.delete(this.url + id);
+    return this.httpClient.delete(this.apiUrl + id);
+  }
+
+  public loginSuccess(jwt: string): void {
+    localStorage.setItem('jwt', jwt);
+    this.router.navigate(['chat']);
   }
 }

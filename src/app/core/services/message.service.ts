@@ -1,4 +1,4 @@
-import { Message } from './../../shared/models/message';
+import { Message } from '../../shared/models/message.model';
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -7,27 +7,27 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class MessageService {
-  url = environment.apiUrl + 'message/';
+  apiUrl = environment.apiUrl + 'message/';
 
   constructor(private httpClient: HttpClient) {}
 
   getAllMessages() {
-    return this.httpClient.get(this.url);
+    return this.httpClient.get(this.apiUrl);
   }
 
   getMessageById(id: any) {
-    return this.httpClient.get(this.url + id);
+    return this.httpClient.get(this.apiUrl + id);
   }
 
   saveMessage(message: Message) {
-    return this.httpClient.post(this.url, message);
+    return this.httpClient.post(this.apiUrl, message);
   }
 
   editMessage(message: Message) {
-    return this.httpClient.put(this.url, message);
+    return this.httpClient.put(this.apiUrl, message);
   }
 
   deleteMessage(id: any) {
-    return this.httpClient.delete(this.url + id);
+    return this.httpClient.delete(this.apiUrl + id);
   }
 }

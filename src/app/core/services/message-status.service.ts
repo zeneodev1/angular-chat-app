@@ -1,4 +1,4 @@
-import { MessageStatus } from './../../shared/models/message-status';
+import { MessageStatus } from '../../shared/models/message-status.model';
 
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -8,27 +8,27 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class MessageStatusService {
-  url = environment.apiUrl + 'messageStatus/';
+  apiUrl = environment.apiUrl + 'messageStatus/';
 
   constructor(private httpClient: HttpClient) {}
 
   getAllMessageStatuss() {
-    return this.httpClient.get(this.url);
+    return this.httpClient.get(this.apiUrl);
   }
 
   getMessageStatusById(id: any) {
-    return this.httpClient.get(this.url + id);
+    return this.httpClient.get(this.apiUrl + id);
   }
 
   saveMessageStatus(messageStatus: MessageStatus) {
-    return this.httpClient.post(this.url, messageStatus);
+    return this.httpClient.post(this.apiUrl, messageStatus);
   }
 
   editMessageStatus(messageStatus: MessageStatus) {
-    return this.httpClient.put(this.url, messageStatus);
+    return this.httpClient.put(this.apiUrl, messageStatus);
   }
 
   deleteMessageStatus(id: any) {
-    return this.httpClient.delete(this.url + id);
+    return this.httpClient.delete(this.apiUrl + id);
   }
 }

@@ -1,4 +1,4 @@
-import { Conversation } from './../../shared/models/conversation';
+import { Conversation } from '../../shared/models/conversation.model';
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -7,27 +7,27 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ConversationService {
-  url = environment.apiUrl + 'conversation/';
+  apiUrl = environment.apiUrl + 'conversation/';
 
   constructor(private httpClient: HttpClient) {}
 
   getAllConversations() {
-    return this.httpClient.get(this.url);
+    return this.httpClient.get(this.apiUrl);
   }
 
   getConversationById(id: any) {
-    return this.httpClient.get(this.url + id);
+    return this.httpClient.get(this.apiUrl + id);
   }
 
   saveConversation(conversation: Conversation) {
-    return this.httpClient.post(this.url, conversation);
+    return this.httpClient.post(this.apiUrl, conversation);
   }
 
   editConversation(conversation: Conversation) {
-    return this.httpClient.put(this.url, conversation);
+    return this.httpClient.put(this.apiUrl, conversation);
   }
 
   deleteConversation(id: any) {
-    return this.httpClient.delete(this.url + id);
+    return this.httpClient.delete(this.apiUrl + id);
   }
 }
