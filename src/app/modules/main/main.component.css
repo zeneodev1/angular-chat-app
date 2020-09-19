@@ -1,0 +1,86 @@
+
+.container-fluid {
+  padding: 0 1.5rem!important;
+}
+
+nav {
+  background: #575EE6;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+nav .logo-link {
+  color: white;
+  font-size: 22px;
+  font-family: 'Vegan Style Personal Use Regular', sans-serif;
+  text-decoration: none;
+}
+
+.nav-shortcuts {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.nav-shortcuts .profile-pic {
+  overflow: hidden;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.nav-shortcuts .profile {
+  position: relative;
+}
+
+.nav-shortcuts .profile .collapsed-menu {
+  padding: 5px 0;
+  background: white;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 25px);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.20);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.20);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.20);
+  border-radius: 3px;
+}
+
+.nav-shortcuts .profile .collapsed-menu.collapsed {
+  display: none;
+}
+
+.nav-shortcuts .profile .collapsed-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-shortcuts .profile .collapsed-menu ul li {
+  padding-left: 12px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+
+.nav-shortcuts .profile .collapsed-menu .wrapper {
+  width: 180px;
+}
+
+
+.nav-shortcuts .profile-pic img {
+  width: 100%;
+}
+
+
+.notifications .icon,
+.add svg{
+  fill: white;
+  cursor: pointer;
+}
+
+.add svg {
+  width: 27px;
+  height: 27px;
+}

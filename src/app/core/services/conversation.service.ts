@@ -1,33 +1,31 @@
 import { Conversation } from '../../shared/models/conversation.model';
 import { environment } from './../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConversationService {
-  apiUrl = environment.apiUrl + 'conversation/';
+  private apiUrl = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) {}
 
-  getAllConversations() {
-    return this.httpClient.get(this.apiUrl);
+  getUserConversations(userId): Observable<Conversation[]> {
+    return this.httpClient.get<Conversation[]>(this.apiUrl + 'conversations/' + userId, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('jwt')
+      })
+    });
   }
 
-  getConversationById(id: any) {
-    return this.httpClient.get(this.apiUrl + id);
+  getConversationById(convId: string): Observable<Conversation> {
+    return this.httpClient.get(this.apiUrl + 'conversation/' + convId, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('jwt')
+      })
+    });
   }
 
-  saveConversation(conversation: Conversation) {
-    return this.httpClient.post(this.apiUrl, conversation);
-  }
-
-  editConversation(conversation: Conversation) {
-    return this.httpClient.put(this.apiUrl, conversation);
-  }
-
-  deleteConversation(id: any) {
-    return this.httpClient.delete(this.apiUrl + id);
-  }
 }

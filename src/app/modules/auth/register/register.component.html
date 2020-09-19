@@ -3,46 +3,54 @@
   <div class="w-50 register-wrapper">
 
     <div class="register w-100 h-100 d-flex align-items-center flex-column justify-content-center">
-      <div class="title mb-5 w-100">
+      <div class="title mb-4 w-100">
         <h1>Sign up</h1>
       </div>
 
-      <form class="w-100" [formGroup]="registerForm">
+      <p class="text-danger mb-0">{{errorMessage}}</p>
+      <form autocomplete="off" class="w-100" [formGroup]="registerForm">
 
         <div class="field">
           <span class="field-name">First name :</span>
 
-          <div class="control">
-            <input placeholder="Enter first name" formControlName="firstName" type="text">
+          <div [class.error]="showError['firstName']" class="control">
+            <input autocomplete="off" (focus)="onInputFocus('firstName')" (focusout)="onInputFocusOut('firstName')"  placeholder="Enter first name" formControlName="firstName" type="text">
           </div>
+          <span [class.invisible]="!showError['firstName']" class="text-danger validation-text">First name is required</span>
         </div>
 
         <div class="field">
           <span class="field-name">Last name :</span>
 
-          <div class="control">
-            <input placeholder="Enter last name" formControlName="lastName" type="text">
+          <div [class.error]="showError['lastName']" class="control">
+            <input (focus)="onInputFocus('lastName')" (focusout)="onInputFocusOut('lastName')" placeholder="Enter last name" formControlName="lastName" type="text">
           </div>
+          <span [class.invisible]="!showError['lastName']" class="text-danger validation-text">Last name is required</span>
         </div>
 
         <div class="field">
           <span class="field-name">Email :</span>
 
-          <div class="control">
-            <input placeholder="Enter email" formControlName="email" type="email">
+          <div [class.error]="showError['email']" class="control">
+            <input (focus)="onInputFocus('email')" (focusout)="onInputFocusOut('email')"  placeholder="Enter email" formControlName="email" type="email">
           </div>
+          <span [class.invisible]="!showError['email']" class="text-danger validation-text">Please enter a valid email</span>
         </div>
 
         <div class="field">
           <span class="field-name">Password :</span>
 
-          <div class="control">
-            <input placeholder="Enter password" formControlName="password" type="password">
+          <div [class.error]="showError['password']" class="control">
+            <input (focus)="onInputFocus('password')" (focusout)="onInputFocusOut('password')"  placeholder="Enter password" formControlName="password" type="password">
           </div>
+          <span [class.invisible]="!showError['password']" class="text-danger validation-text">Password must contains at least 8 characters</span>
         </div>
 
-        <div class="d-flex align-items-center d-block">
-          <button (click)="registerClick()" type="button" class="auth-btn">SIGN UP</button>
+        <div class="d-flex align-items-center d-block mt-3">
+          <button (click)="registerClick()" type="button" class="auth-btn">
+            <span *ngIf="!registerInProgress">SIGN UP</span>
+            <span *ngIf="registerInProgress">Please wait...</span>
+          </button>
         </div>
 
       </form>
@@ -59,8 +67,9 @@
   <div class="w-50">
 
     <div class="auth-side">
-      <h2>Chat with family, friends, and loved ones.</h2>
-      <div class="illustration">
+      <div style="z-index: 0" class="bg-view"></div>
+      <h2 style="z-index: 100">Chat with family, friends, and loved ones.</h2>
+      <div style="z-index: 100" class="illustration">
         <svg height="350px" version="1.1" id="_x3C_Layer_x3E_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
              y="0px" viewBox="0 0 3800 2000" style="enable-background:new 0 0 3800 2000;" xml:space="preserve">
           <style type="text/css">

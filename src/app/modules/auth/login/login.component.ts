@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../../core/services/user.service';
 import {User} from '../../../shared/models/user.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   loginInProgress: boolean;
   public errorMessage: string;
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.loginInProgress = false;
     this.user = null;
     this.loginForm = new FormGroup(
@@ -33,14 +34,22 @@ export class LoginComponent implements OnInit {
       this.user = new User();
       this.user.email = this.loginForm.get('email').value;
       this.user.password = this.loginForm.get('password').value;
-      console.log(this.user);
       this.userService.login(this.user).toPromise().then(resp => {
-        this.userService.loginSuccess(resp);
+        const token = resp.headers.get('x-access-token');
+        const user = resp.body;
+        this.loginSuccess(user, token);
       }).catch(reason => {
         this.loginInProgress = false;
         this.errorMessage = 'Email or password is not correct';
       });
     } else if (!this.loginForm.valid) {
     }
+  }
+
+
+  public loginSuccess(user: User, jwt: string): void {
+    localStorage.setItem('jwt', jwt);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.router.navigate(['chat']);
   }
 }

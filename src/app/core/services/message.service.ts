@@ -1,33 +1,61 @@
-import { Message } from '../../shared/models/message.model';
-import { environment } from './../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import * as Stomp from 'stompjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Message} from '../../shared/models/message.model';
+import {Observable} from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class MessageService {
-  apiUrl = environment.apiUrl + 'message/';
+  private Stomp = Stomp;
+  private websocketUrl = 'ws:localhost:8080/api/chat';
+  private connected: boolean;
+  private ws: any;
 
-  constructor(private httpClient: HttpClient) {}
 
-  getAllMessages() {
-    return this.httpClient.get(this.apiUrl);
+  private apiUrl = 'http://localhost:8080/api/';
+
+  constructor(private httpClient: HttpClient) {
+    this.connected = false;
   }
 
-  getMessageById(id: any) {
-    return this.httpClient.get(this.apiUrl + id);
+  connect(connectedListener): void {
+    // connect to stomp where stomp endpoint is exposed
+    const socket = new WebSocket(this.websocketUrl);
+    this.ws = this.Stomp.over(socket);
+    const that = this;
+    this.ws.connect({}, (frame) => {
+      connectedListener();
+      console.log('websocket connected');
+    }, (error) => {
+    });
   }
 
-  saveMessage(message: Message) {
-    return this.httpClient.post(this.apiUrl, message);
+  watchMessages(conversationId, callback): void {
+    this.ws.subscribe('/topic/messages' + conversationId, callback);
   }
 
-  editMessage(message: Message) {
-    return this.httpClient.put(this.apiUrl, message);
+  disconnect(): void {
+    if (this.ws != null) {
+      this.ws.ws.close();
+    }
+    this.connected = false;
+    console.log('Disconnected');
   }
 
-  deleteMessage(id: any) {
-    return this.httpClient.delete(this.apiUrl + id);
+  sendMessage(conversationId, message: Message): void {
+    const data = JSON.stringify(message);
+    this.ws.send('/app/messages/' + conversationId, {}, data);
+  }
+
+  getUserMessages(conversationId): Observable<Message[]> {
+    return this.httpClient.get<Message[]>(this.apiUrl + '/messages/' + conversationId, {
+      headers: new HttpHeaders({
+          Authorization: 'Bearer ' + localStorage.getItem('jwt')
+        }
+      )
+    });
   }
 }

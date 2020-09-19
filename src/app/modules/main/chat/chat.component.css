@@ -1,0 +1,117 @@
+.chat-container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 60px);
+}
+
+
+.friends-section {
+  height: 100%;
+  width: 370px;
+  border-right: 1px solid #ECECEC;
+  overflow-y: auto;
+}
+
+.friends-section::-webkit-scrollbar {
+  width: 7px;
+}
+
+.friends-section::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+/* Handle */
+.friends-section::-webkit-scrollbar-thumb {
+  background: #b1b0b0;
+  transition: 0.2s background-color;
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+.friends-section::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.friends-section .search-box {
+  width: 100%;
+  background: #F6F8FA;
+  display: flex;
+  align-items: center;
+
+  padding: 10px 1.5rem;
+}
+
+.friends-section .search-box span {
+  margin-right: 0.8rem;
+}
+
+.friends-section .search-box span svg {
+  fill: #979898;
+  width: 18px;
+  height: 18px;
+}
+
+
+.friends-section .search-box .search-input {
+  background: transparent;
+  border: 0;
+  width: 100%;
+}
+
+.friends-section .search-box .search-input:focus {
+  outline: 0;
+}
+
+
+.friends-section .search-box .search-input::placeholder {
+  color: #979898;
+  font-size: 14px;
+}
+
+.friend {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.friend.active {
+  background: #F6F8FA;
+}
+
+
+.friend .friend-img-part {
+  margin-left: 1rem;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 11px;
+}
+
+.friend .friend-img-part img {
+  width: 100%;
+}
+
+
+
+.friend .friend-name {
+  font-weight: bold;
+}
+
+
+
+.friend .friend-last-message-date {
+  color: #949494;
+  font-size: 14px;
+}
+
+.friend .friend-last-message {
+  color: #707070;
+}
+
+.messages-section {
+  width: calc(100vw - 370px);
+}

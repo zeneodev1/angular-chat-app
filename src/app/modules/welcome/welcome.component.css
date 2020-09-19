@@ -1,0 +1,75 @@
+@keyframes welcome {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.welcome-container {
+  animation-name: welcome;
+  animation-duration: 300ms;
+  width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+}
+
+.top-nav {
+  height: 100px;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.top-nav .logo {
+  font-family: 'Vegan Style Personal Use Regular', sans-serif;
+  font-size: 35px;
+  color: #5E65E7;
+  text-decoration: none;
+}
+
+.illustration {
+  height: 250px;
+}
+
+.illustration svg {
+  height: 100%;
+}
+
+.main-welc {
+  font-size: 60px;
+  font-family: 'Playfair Display', serif;
+  color: #000000;
+}
+
+.complete-btn {
+  background: #575EE6;
+  color: white;
+  border: 0;
+  padding: 13px 25px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.welcome-msg {
+  color: #8C8C8C;
+}
+
+
+.complete-btn:focus {
+  outline: 0;
+}
+
+.complete-btn svg {
+  fill: white;
+  height: 25px;
+}

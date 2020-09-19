@@ -1,0 +1,33 @@
+.friend-part {
+  padding: 13px 1.5rem;
+  border-bottom: 1px solid #EBEBEB;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.friend-part .friend-part-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 12px;
+}
+
+.friend-part .friend-part-img img {
+  width: 100%;
+}
+
+.friend-part-data {
+  line-height: 1;
+}
+
+.friend-part-data .name {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.friend-part-data .status {
+  color: #7E7E7E;
+}

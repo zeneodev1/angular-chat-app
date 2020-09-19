@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {UserService} from './core/services/user.service';
 import {HttpClientModule} from '@angular/common/http';
+import {RxStompService} from '@stomp/ng2-stompjs';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import {HttpClientModule} from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    RxStompService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

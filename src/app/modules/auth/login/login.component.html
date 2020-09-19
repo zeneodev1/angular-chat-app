@@ -26,7 +26,10 @@
           </div>
         </div>
 
-        <button [disabled]="loginInProgress" type="button" (click)="loginClick()" class="auth-btn mt-3">LOGIN</button>
+        <button [disabled]="loginInProgress" type="button" (click)="loginClick()" class="auth-btn mt-3">
+          <span *ngIf="loginInProgress">Please wait...</span>
+          <span *ngIf="!loginInProgress">LOGIN</span>
+        </button>
 
         <div class="d-flex align-items-center d-block pt-3">
           <div class="d-flex align-items-center">
@@ -51,8 +54,9 @@
   <div class="w-50">
 
     <div class="auth-side">
-      <h2>Chat with family, friends, and loved ones.</h2>
-      <div class="illustration">
+      <div style="z-index: 0" class="bg-view"></div>
+      <h2 style="z-index: 100">Chat with family, friends, and loved ones.</h2>
+      <div style="z-index: 100" class="illustration">
         <svg height="350px" version="1.1" id="_x3C_Layer_x3E_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
              y="0px" viewBox="0 0 3800 2000" style="enable-background:new 0 0 3800 2000;" xml:space="preserve">
           <style type="text/css">

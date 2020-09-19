@@ -11,23 +11,4 @@ export class InvitationService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAllInvitations() {
-    return this.httpClient.get(this.apiUrl);
-  }
-
-  getInvitationById(id: any) {
-    return this.httpClient.get(this.apiUrl + id);
-  }
-
-  saveInvitation(invitation: Invitation) {
-    return this.httpClient.post(this.apiUrl, invitation);
-  }
-
-  editInvitation(invitation: Invitation) {
-    return this.httpClient.put(this.apiUrl, invitation);
-  }
-
-  deleteInvitation(id: any) {
-    return this.httpClient.delete(this.apiUrl + id);
-  }
 }

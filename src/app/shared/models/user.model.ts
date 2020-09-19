@@ -1,4 +1,3 @@
-import { UserProfile } from './user-profile.model';
 
 export class User {
   constructor(
@@ -10,6 +9,8 @@ export class User {
     public photo?: string,
     public status?: string,
     public friends?: User[],
-    public profile?: UserProfile
+    public gender?: string,
+    public phone?: string,
+    public birthay?: Date
   ) {}
 }
