@@ -1,0 +1,51 @@
+
+<div class="invitations h-100">
+  <div *ngIf="invitations.length !== 0 && !loading">
+    <div *ngFor="let invitation of invitations">
+      <div *ngIf="invitation.status === 'PENDING'" class="invitation">
+        <div>
+          <div class="div-pic">
+            <img *ngIf="invitation.from.photo == null" src="assets/img/profile-1.jpg" alt=""/>
+            <img *ngIf="invitation.from.photo != null" src="http://localhost:8080/api/images/{{invitation.from.id}}.png"/>
+        </div>
+        </div>
+        <div class="div-info">
+          <div class="person-info">
+            <span class="person-name">{{invitation.from.firstName}} {{invitation.from.lastName}}</span>
+            <span class="person-email">{{invitation.from.email}}</span>
+          </div>
+        </div>
+        <div class="div-btn">
+          <span (click)="acceptInvitation(invitation)" id="accept-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M9 16.2l-3.5-3.5c-.39-.39-1.01-.39-1.4 0-.39.39-.39 1.01 0 1.4l4.19 4.19c.39.39 1.02.39 1.41 0L20.3 7.7c.39-.39.39-1.01 0-1.4-.39-.39-1.01-.39-1.4 0L9 16.2z"/>
+            </svg>
+          </span>
+          <span id="reject-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
+              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div *ngIf="invitation.status === 'ACCEPTED'" class="invitation">
+        <div>
+          <div class="div-pic">
+            <img *ngIf="invitation.to.photo == null" src="assets/img/profile-1.jpg" alt=""/>
+            <img *ngIf="invitation.to.photo != null" src="http://localhost:8080/api/images/{{invitation.to.id}}.png"/>
+          </div>
+        </div>
+
+        <div class="message">
+          <span style="font-size: 15px">{{invitation.to.firstName}} {{invitation.to.lastName}} Has been accepted your Request</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div *ngIf="invitations.length === 0 && !loading" class="w-100 h-100 d-flex align-items-center justify-content-center text-center">
+    <p class="text-dark m-0 py-3" style="font-weight: 500">no notifications found</p>
+  </div>
+</div>

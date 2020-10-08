@@ -177,3 +177,21 @@
   animation-name: side-text;
   animation-duration: 400ms;
 }
+
+
+@media screen and (max-width: 768px){
+  .login-wrapper {
+    width: 100vw!important;
+    padding: 0 180px;
+  }
+  .auth-graphic {
+    width: 0!important;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 576px){
+  .login-wrapper {
+    padding: 0 40px;
+  }
+}

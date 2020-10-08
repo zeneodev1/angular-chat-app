@@ -115,3 +115,14 @@
 .messages-section {
   width: calc(100vw - 370px);
 }
+
+
+@media only screen and (max-width: 768px){
+  .friends-section {
+    width: 100%;
+  }
+
+  .messages-section {
+    width: 100%;
+  }
+}

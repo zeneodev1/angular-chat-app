@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       this.user.email = this.loginForm.get('email').value;
       this.user.password = this.loginForm.get('password').value;
       this.userService.login(this.user).toPromise().then(resp => {
-        const token = resp.headers.get('x-access-token');
+        const token = resp.headers.get('X-Authorization');
         const user = resp.body;
         this.loginSuccess(user, token);
       }).catch(reason => {

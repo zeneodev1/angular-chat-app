@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
       this.user.password = this.registerForm.get('password').value;
       this.userService.register(this.user).toPromise().catch().then(value => {
         this.userService.login(this.user).toPromise().then(resp => {
-          this.loginSuccess(resp.body, resp.headers.get('x-access-token'));
+          this.loginSuccess(resp.body, resp.headers.get('X-Authorization'));
         }).catch(reason => {
           this.errorMessage = 'Something went wrong';
           this.registerInProgress = false;

@@ -31,3 +31,121 @@
 .friend-part-data .status {
   color: #7E7E7E;
 }
+
+.messages-part {
+  width: 100%;
+  height: calc(100vh - 132px);
+  position: relative;
+}
+
+.messages-part .messages-form {
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  border-top: 1px solid #ECECEC;
+}
+
+.messages-part .messages-form form {
+  height: 100%;
+  width: 100%;
+}
+
+.messages-part .messages-form .messages-control {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.messages-part .messages-form .messages-control input {
+  width: 100%;
+  border: 0;
+  margin-left: 10px;
+  color: #1b1e21;
+}
+
+.messages-part .messages-form .messages-control .send-icon {
+  margin-right: 20px;
+}
+
+.messages-part .messages-form .messages-control .send-icon svg {
+  fill: #575EE6;
+  width: 26px;
+  height: 26px;
+}
+
+.messages {
+  height: calc(100% - 50px);
+  overflow: auto;
+  width: 100%;
+}
+
+.message {
+  padding: 2px 24px;
+  display: flex;
+  align-items: center;
+}
+
+.message.friend {
+  justify-content: flex-start;
+}
+
+.message .text-sec {
+  min-height: 35px;
+  max-width: 60%;
+  display: flex;
+  align-items: center;
+  padding: 6px 15px;
+  border-radius: 18px;
+}
+
+.message .text-sec p {
+  margin: 0;
+}
+
+.message.friend .text-sec {
+  margin-left: 15px;
+  background: #F6F8FA;
+  color: #1b1e21;
+}
+
+.message.me .text-sec {
+  margin-right: 15px;
+  background: #575EE6;
+  color: white;
+}
+
+
+.message .img-sec {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.message .img-sec img {
+  width: 35px;
+  height: 35px;
+}
+
+.message.me {
+  justify-content: flex-end;
+}
+
+.spinner-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 60px);
+}
+
+
+@media only screen and (max-width: 768px){
+  .message {
+    padding: 2px 15px;
+  }
+
+  .message.me .text-sec {
+    margin-right: 10px;
+  }
+}

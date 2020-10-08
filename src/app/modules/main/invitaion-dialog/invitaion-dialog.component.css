@@ -1,0 +1,109 @@
+.dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.dialog .dialog-wrapper {
+  width: 470px;
+  height: 426px;
+  background: white;
+}
+
+.search-sec {
+  background: #FBFBF8;
+  width: 100%;
+}
+
+.search-control {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.search-control input {
+  border: 0;
+  background: transparent;
+  width: 100%;
+}
+
+.search-control .search-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #60605D;
+}
+
+.people-sec {
+  height: 370px;
+  overflow: auto;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  padding: 13px 17px;
+}
+
+.person .person-img-div {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.person .person-img-div img {
+  width: 100%;
+}
+
+.person-info {
+  margin-left: 15px;
+  width: 100%;
+}
+
+.person-info span {
+  display: block;
+}
+
+
+.person-info .person-name {
+  font-weight: 500;
+}
+
+.person-info .person-email {
+  color: rgba(27, 30, 33, 0.9);
+}
+
+button:focus {
+  outline: 0;
+}
+
+.invitation-btn {
+  background: #4E54CF;
+  border: 0;
+  color: white;
+  font-size: 15px;
+  padding: 5px 10px;
+}
+
+.btns-sec {
+  display: flex;
+  border-top: #D4D4D4 solid 2px;
+}
+
+.btns-sec .cancel-btn {
+  border: 0;
+  background: #4E54CF;
+  color: white;
+  margin-top: 12px;
+  margin-left: 15px;
+  padding: 6px 15px;
+}

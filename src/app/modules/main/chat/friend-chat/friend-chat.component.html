@@ -1,14 +1,74 @@
-
-<div class="friend-part">
-  <div class="friend-part-img">
-    <img src="assets/img/profile-1.jpg" alt="">
+<div [class.d-none]="!conversationLoaded">
+  <div class="friend-part">
+    <div class="friend-part-img">
+      <img *ngIf="friend.photo == null" src="assets/img/profile-1.jpg" alt=""/>
+      <img *ngIf="friend.photo != null" src="http://localhost:8080/api/images/{{friend.id}}.png"/>
+    </div>
+    <div class="friend-part-data">
+      <span class="name">{{friend.firstName}} {{friend.lastName}}</span>
+      <span class="status">{{friend.status}}</span>
+    </div>
   </div>
-  <div class="friend-part-data">
-    <span class="name">{{friend.firstName}} {{friend.lastName}}</span>
-    <span class="status">online</span>
+
+  <div class="messages-part">
+
+    <div #messagesDiv class="messages">
+
+      <div *ngFor="let message of conversationMessages; let i = index">
+        <div *ngIf="message.conversationId === conversationId">
+          <div [ngClass]="{'mt-3': i == 0, 'mb-3': i == conversationMessages.length - 1}" *ngIf="message.from == friend.id">
+            <div class="message friend">
+              <div [ngClass]="{'invisible': i != 0 && conversationMessages[i-1].from == friend.id}">
+                <div class="img-sec">
+                  <img *ngIf="friend.photo == null" src="assets/img/profile-1.jpg" alt=""/>
+                  <img *ngIf="friend.photo != null" src="http://localhost:8080/api/images/{{friend.id}}.png"/>                </div>
+              </div>
+              <div class="text-sec">
+                <p>{{message.text}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div [ngClass]="{'mt-3': i == 0, 'mb-3': i == conversationMessages.length - 1}" *ngIf="message.from == user.id">
+            <div class="message me">
+              <div class="text-sec">
+                <p>{{message.text}}</p>
+              </div>
+              <div [ngClass]="{'invisible': i != 0  && conversationMessages[i-1].from == user.id}">
+                <div class="img-sec">
+                  <img *ngIf="user.photo == null" src="assets/img/profile-1.jpg" alt=""/>
+                  <img *ngIf="user.photo != null" src="http://localhost:8080/api/images/{{user.id}}.png"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="messages-form">
+
+      <form (ngSubmit)="sendMessage()" [formGroup]="messagesForm">
+        <div class="messages-control">
+          <input formControlName="text" type="text" placeholder="Type something..." class="messages-input" >
+          <span style="cursor: pointer;" (click)="sendMessage()" class="send-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M3.4 20.4l17.45-7.48c.81-.35.81-1.49 0-1.84L3.4 3.6c-.66-.29-1.39.2-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"/>
+          </svg>
+        </span>
+        </div>
+      </form>
+
+    </div>
+
   </div>
 </div>
 
-<div class="messages-part">
-
+<div *ngIf="!conversationLoaded" class="spinner-container">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0)" [fullScreen]="false" color="#575EE6" type="square-jelly-box" size="medium">
+  </ngx-spinner>
 </div>

@@ -7,7 +7,7 @@ export class Message {
     public text?: string,
     public sentAt?: Date,
     public status?: string,
-    public from?: User,
+    public from?: string,
     public conversationId?: string,
     public messageStatuses?: MessageStatus[]
   ) {}

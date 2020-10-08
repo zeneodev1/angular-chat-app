@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../../shared/models/user.model';
 import { environment } from './../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
 
@@ -20,7 +20,8 @@ export class UserService {
 
   public login(user: User): Observable<any> {
     return this.httpClient.post(this.apiUrl + 'login', user, {
-      observe: 'response'
+      observe: 'response' as 'response',
+      withCredentials: true
     });
   }
 
@@ -30,7 +31,11 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<any> {
-    return this.httpClient.put(this.apiUrl, user);
+    return this.httpClient.post(this.apiUrl + user.id , user, {
+      headers: new HttpHeaders({
+        'X-Authorization': 'Bearer ' + localStorage.getItem('jwt')
+      })
+    });
   }
 
   getUserFromStorage(): User {
@@ -39,5 +44,35 @@ export class UserService {
 
   isAuthenticated(): boolean {
     return !new JwtHelperService().isTokenExpired(localStorage.getItem('jwt'));
+  }
+
+  changePassword(changeRequest, userId): Observable<any> {
+    return this.httpClient.post(this.apiUrl + 'changePassword' , changeRequest, {
+      headers: new HttpHeaders({
+        'X-Authorization': 'Bearer ' + localStorage.getItem('jwt')
+      })
+    });
+  }
+
+  searchForPeople(q): Observable<any> {
+    return this.httpClient.get(this.apiUrl + 'search', {
+      headers: new HttpHeaders({
+        'X-Authorization': 'Bearer ' + localStorage.getItem('jwt')
+      }),
+      params: {
+        email: q
+      }
+    });
+  }
+
+  uploadPicture(file, userId): Observable<any> {
+    const data: FormData = new FormData();
+    data.set('image', file);
+    return this.httpClient.post(this.apiUrl + userId + '/picture', data,
+      {
+        headers: new HttpHeaders({
+          'X-Authorization': 'Bearer ' + localStorage.getItem('jwt')
+        })
+      });
   }
 }

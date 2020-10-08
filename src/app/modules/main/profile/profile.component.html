@@ -1,0 +1,41 @@
+
+<div class="wrapper">
+  <div class="picture-sec">
+    <div>
+      <div class="pic-div">
+        <img *ngIf="user.photo == null" src="assets/img/profile-1.jpg" alt=""/>
+        <img *ngIf="user.photo != null" src="http://localhost:8080/api/images/{{user.id}}.png"/>
+      </div>
+    </div>
+    <button (click)="selectPicture()" class="btn-change-picture">Change photo</button>
+    <input #fileInput type="file" (change)="onSelectPicture($event)" class="d-none">
+    <app-change-picture (savePicture)="changePicture()" [imageChangedEvent]="imageChangeEvent" *ngIf="showEditPhoto" (closeWindow)="closeEditPhoto()"></app-change-picture>
+  </div>
+  <div class="account-info-sec">
+    <h5>ACCOUNT INFORMATION</h5>
+    <form (ngSubmit)="saveInfo()" [formGroup]="infoFormGroup">
+      <div class="control">
+        <span class="control-title">First Name</span>
+        <input formControlName="firstName" type="text" value="Mohamed">
+      </div>
+      <div class="control">
+        <span class="control-title">Last Name</span>
+        <input formControlName="lastName" type="text" value="Ezzaoui">
+      </div>
+      <div class="control">
+        <span class="control-title">Email</span>
+        <input formControlName="email" type="email" value="zeneodev1@gmail.com">
+      </div>
+      <div class="control">
+        <span class="control-title">Location</span>
+        <input formControlName="location" type="text" value="Tangier, Morocco">
+      </div>
+    </form>
+  </div>
+
+  <div (click)="saveInfo()" class="btns-sec">
+    <button routerLink="/chat" class="cancel-btn">Cancel</button>
+    <button class="save-btn">Save</button>
+  </div>
+
+</div>

@@ -1,7 +1,7 @@
 
 <div class="chat-container">
 
-  <div class="friends-section">
+  <div [class.d-none]="inConversation && isSmallScreen" class="friends-section">
 
     <div class="search-box">
       <span>
@@ -56,7 +56,10 @@
         <div [routerLink]="conversation.id" *ngIf="conversation.type == 'FRIENDS'" class="friend">
           <div>
             <div class="friend-img-part">
-              <img alt="" src="assets/img/profile-1.jpg">
+              <img *ngIf="user.id != conversation.participants[0].id"
+                   alt="" src="{{conversation.participants[0].photo != null ? 'http://localhost:8080/api/images/' + conversation.participants[0].photo : 'assets/img/profile-1.jpg'}}">
+              <img *ngIf="user.id != conversation.participants[1].id"
+                   alt="" src="{{conversation.participants[1].photo != null ? 'http://localhost:8080/api/images/' + conversation.participants[1].photo : 'assets/img/profile-1.jpg'}}">
             </div>
           </div>
           <div class="conversation-data-part w-100">
@@ -67,7 +70,7 @@
               <span *ngIf="user.id != conversation.participants[1].id" class="friend-name">
                 {{conversation.participants[1].firstName}} {{conversation.participants[1].lastName}}
               </span>
-              <span *ngIf="conversation.lastMessage != null" class="friend-last-message-date ml-auto mr-3">12:30 AM</span>
+              <span *ngIf="conversation.lastMessage != null" class="friend-last-message-date ml-auto mr-3">{{conversation.lastMessage.sentAt | date : 'shortTime'}}</span>
             </div>
             <span *ngIf="conversation.lastMessage != null" class="friend-last-message">{{conversation.lastMessage.text}}</span>
             <span *ngIf="conversation.lastMessage == null" class="friend-last-message">Say Hi to your Friend!</span>
@@ -82,7 +85,7 @@
 
   </div>
 
-  <div class="messages-section">
+  <div [class.d-none]="!inConversation && isSmallScreen" class="messages-section">
     <router-outlet></router-outlet>
   </div>
 

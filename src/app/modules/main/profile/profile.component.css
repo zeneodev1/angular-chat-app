@@ -1,0 +1,123 @@
+.wrapper {
+  background: #575EE6;
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+
+.picture-sec {
+  display: flex;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.picture-sec .pic-div {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.picture-sec .pic-div img {
+  width: 100%;
+}
+
+.picture-sec .btn-change-picture {
+  background: transparent;
+  border: 1px rgba(255, 255, 255, 0.6) solid;
+  color: rgba(255, 255, 255, 0.95);
+  padding: 6px 30px;
+  margin-left: 40px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.picture-sec .btn-change-picture:focus {
+  outline: 0;
+}
+
+.picture-sec .btn-change-picture:hover {
+  background: white;
+  color: #575EE6;
+}
+
+
+.account-info-sec {
+  color: white;
+}
+
+.account-info-sec h5 {
+  margin-bottom: 25px;
+  width: 540px;
+}
+
+.account-info-sec .control {
+  display: flex;
+  align-items: center;
+  margin: 9px 0;
+}
+
+.account-info-sec .control .control-title {
+  width: 140px;
+}
+
+.account-info-sec .control input {
+  width: 400px;
+  background: #6066E7;
+  border: #9196EF 1px solid;
+  color: white;
+  font-size: 15px;
+  padding: 4px 13px;
+}
+
+
+.btns-sec {
+  margin-top: 40px;
+}
+
+.btns-sec button {
+  padding: 5px 50px;
+  border: 0;
+}
+
+.btns-sec button:focus {
+  outline: 0;
+}
+
+.btns-sec .cancel-btn{
+  background: transparent;
+  color: white;
+}
+
+.btns-sec .save-btn {
+  background: white;
+  color: #575EE6;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .picture-sec .pic-div {
+    width: 90px;
+    height: 90px;
+  }
+
+  .picture-sec .btn-change-picture {
+    padding: 4px 25px;
+    margin-left: 25px;
+  }
+
+  .account-info-sec h5 {
+    width: 300px;
+  }
+
+  .account-info-sec .control input {
+    width: 200px;
+  }
+
+  .account-info-sec .control .control-title {
+    width: 100px;
+  }
+}

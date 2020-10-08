@@ -8,6 +8,7 @@ export class User {
     public password?: string,
     public photo?: string,
     public status?: string,
+    public location?: string,
     public friends?: User[],
     public gender?: string,
     public phone?: string,
