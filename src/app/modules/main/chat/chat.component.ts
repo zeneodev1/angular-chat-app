@@ -19,6 +19,8 @@ export class ChatComponent implements OnInit {
   @ViewChild('mySpinner')
   spinnerEl: ElementRef;
   isSmallScreen: any;
+  isLoaded: boolean;
+  showAddFriends: boolean;
   constructor(private conversationService: ConversationService,
               private zone: NgZone,
               private activatedRoute: ActivatedRoute,
@@ -37,13 +39,13 @@ export class ChatComponent implements OnInit {
     conversationService.getUserConversations(this.user.id).subscribe(value => {
       this.conversations = value;
       this.redirectToConversation();
+      this.isLoaded = true;
     });
     conversationService.listenToUserConversations(this.user.id).subscribe(value => {
       this.zone.run(args => {
         switch (value.eventType) {
           case 'update':
             this.updateConversation(value.document);
-            this.insertConversation(value.document);
             break;
           case 'insert':
             this.insertConversation(value.document);
@@ -58,13 +60,11 @@ export class ChatComponent implements OnInit {
 
   initVariables(): void {
     this.isSmallScreen = window.innerWidth <= 768;
-    this.inConversation = false;
-    if (this.activatedRoute.snapshot.firstChild !== null) {
-      this.inConversation = true;
-    }
-    console.log(this.inConversation);
+    this.inConversation = this.activatedRoute.snapshot.firstChild !== null;
     this.conversations = [];
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.isLoaded = false;
+    this.showAddFriends = false;
   }
 
   redirectToConversation(): void {
@@ -77,7 +77,16 @@ export class ChatComponent implements OnInit {
   }
 
   updateConversation(conversation: Conversation): void {
-    this.deleteConversation(conversation);
+    this.conversations.forEach((con, index) => {
+      if (conversation.id === con.id) {
+        if (index !== 0) {
+          this.conversations.splice(index, 1);
+        } else {
+          this.conversations[index].lastMessage = conversation.lastMessage;
+          this.conversations[index].unseenMessages = conversation.unseenMessages;
+        }
+      }
+    });
   }
 
   insertConversation(conversation: Conversation): void {
@@ -93,4 +102,7 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  showHideInvitationDialog(): void {
+    this.showAddFriends = !this.showAddFriends;
+  }
 }

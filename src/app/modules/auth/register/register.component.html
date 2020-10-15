@@ -8,7 +8,7 @@
       </div>
 
       <p class="text-danger mb-0">{{errorMessage}}</p>
-      <form autocomplete="off" class="w-100" [formGroup]="registerForm">
+      <form (ngSubmit)="registerClick()" autocomplete="off" class="w-100" [formGroup]="registerForm">
 
         <div class="field">
           <span class="field-name">First name :</span>

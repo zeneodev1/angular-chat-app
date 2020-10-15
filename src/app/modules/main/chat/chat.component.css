@@ -37,7 +37,7 @@
   background: #F6F8FA;
   display: flex;
   align-items: center;
-
+  border-bottom: 1px solid white;
   padding: 10px 1.5rem;
 }
 
@@ -75,9 +75,12 @@
   align-items: center;
   font-size: 15px;
   cursor: pointer;
+  transition: 0.3s all;
 }
 
-.friend.active {
+
+.friend.active,
+.friend:hover {
   background: #F6F8FA;
 }
 
@@ -112,10 +115,55 @@
   color: #707070;
 }
 
+
+.friend .unseen-n {
+  width: 20px;
+  height: 20px;
+  background: #575EE6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 13px;
+}
+
+
 .messages-section {
   width: calc(100vw - 370px);
 }
 
+
+.empty-chat {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 60px);
+}
+
+.empty-chat .illustration svg{
+  width: 250px;
+  height: 300px;
+}
+
+
+.empty-chat button {
+  background: transparent;
+  border: 1px solid #B0B4F3;
+  padding: 7px 28px;
+  color: #575EE6;
+  transition: all 0.2s;
+}
+
+.empty-chat button:hover {
+  background: #575EE6;
+  color: white;
+}
+
+.empty-chat button:focus {
+  outline: 0;
+}
 
 @media only screen and (max-width: 768px){
   .friends-section {
@@ -126,3 +174,4 @@
     width: 100%;
   }
 }
+

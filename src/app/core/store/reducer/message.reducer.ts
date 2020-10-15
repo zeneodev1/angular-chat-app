@@ -1,18 +1,23 @@
 import {Message} from '../../../shared/models/message.model';
 import {Action, ActionReducer, createReducer, on} from '@ngrx/store';
-import {addToMessages, addToVisited, newMessage} from '../action/message.action';
+import {addToMessages, addToVisited, newMessage, setConversationState, setSeen} from '../action/message.action';
+import { Conversation } from '@shared/models/conversation.model';
 
 
 export class MessageState {
   visited: string[];
   messages: Message[];
   newMessage: Message;
+  seen: any;
+  conversationState: Conversation;
 }
 
 const INITIAL_STATE: MessageState = {
   visited: [],
   messages: [],
-  newMessage: null
+  newMessage: null,
+  seen: null,
+  conversationState: null
 };
 
 const MESSAGE_REDUCER: ActionReducer<any, Action> = createReducer(INITIAL_STATE,
@@ -29,6 +34,20 @@ const MESSAGE_REDUCER: ActionReducer<any, Action> = createReducer(INITIAL_STATE,
   on(newMessage, (messageState, {message}) => {
     if (message !== null) {
       return {...messageState, newMessage: message};
+    } else {
+      return messageState;
+    }
+  }),
+  on(setSeen, (messageState, {seen}) => {
+    if (seen !== null) {
+      return {...messageState, seen};
+    } else {
+      return messageState;
+    }
+  }),
+  on(setConversationState, (messageState, {conversation}) => {
+    if (conversation !== null) {
+      return {...messageState, conversationState: conversation};
     } else {
       return messageState;
     }

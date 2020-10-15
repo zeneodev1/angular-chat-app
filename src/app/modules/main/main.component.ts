@@ -4,12 +4,13 @@ import {Router} from '@angular/router';
 import {WebsocketService} from '@core/services/websocket.service';
 import {Store} from '@ngrx/store';
 import {MessageState} from '@core/store/reducer/message.reducer';
-import {addToMessages, addToVisited} from '@core/store/action/message.action';
-import {selectMessageMessages, selectMessageVisited, selectNewMessage} from '@core/store/selector/message.selector';
+import {addToMessages, addToVisited, setConversationState} from '@core/store/action/message.action';
+import {selectMessageMessages, selectMessageSeen, selectMessageVisited, selectNewMessage} from '@core/store/selector/message.selector';
 import {distinctUntilChanged} from 'rxjs/operators';
 import {User} from '@shared/models/user.model';
 import {addInvitations} from '@core/store/action/invitation.action';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -25,6 +26,7 @@ export class MainComponent implements OnInit, OnDestroy {
   user: User;
   @ViewChild('mySpinner')
   spinnerEl: ElementRef;
+  subscriptions: Subscription[];
   constructor(private userService: UserService,
               private router: Router,
               private store: Store<{message, invitations}>) {
@@ -35,11 +37,14 @@ export class MainComponent implements OnInit, OnDestroy {
         message => {
           this.store.dispatch(addInvitations({inv: [JSON.parse(message.body)], from: 'ws'}));
         });
+    }, () => {
+      this.wsConnected = false;
     });
     this.handleMessageStore();
   }
 
   initVariables(): void {
+    this.subscriptions = [];
     this.user = JSON.parse(localStorage.getItem('user'));
     this.invitationDialogDisplayed = false;
     this.profileCollapsed = true;
@@ -49,19 +54,29 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   handleMessageStore(): void {
-    this.store.select(selectNewMessage).subscribe(value => {
+    const sub1 = this.store.select(selectNewMessage).subscribe(value => {
       if (value !== null) {
         this.websocketService.sendMessage('/app/messages/' + value.conversationId, value);
       }
     });
-    this.store.select(selectMessageVisited).subscribe(value => {
+    const sub2 = this.store.select(selectMessageSeen).subscribe(value => {
+      if (value !== null) {
+        this.websocketService.sendMessage('/app/messages/' + value.conversationId + '/seen', value);
+      }
+    });
+    const sub3 = this.store.select(selectMessageVisited).subscribe(value => {
       if (value.length !== 0) {
         this.websocketService.subscribe('/topic/messages/' + value[value.length - 1],
           message => {
             this.store.dispatch(addToMessages({messages: [JSON.parse(message.body)]}));
           });
+        this.websocketService.subscribe('/topic/messages/' + value[value.length - 1] + '/seen',
+          message => {
+            this.store.dispatch(setConversationState({conversation: JSON.parse(message.body)}));
+          });
       }
     });
+    this.subscriptions.push(sub1, sub2, sub3);
   }
 
   ngOnInit(): void {
@@ -86,6 +101,9 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.websocketService.disconnect();
+    this.subscriptions.forEach((subscription, index) => {
+      this.subscriptions[index].unsubscribe();
+    });
   }
 
   @HostListener('document:click', ['$event'])

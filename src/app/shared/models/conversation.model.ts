@@ -6,6 +6,8 @@ export class Conversation {
     public id?: string,
     public type?: string,
     public participants?: User[],
-    public lastMessage?: Message
+    public lastMessage?: Message,
+    public unseenMessages?: Map<string, number>,
+    public lastSeenMessage?: Map<string, string>
   ) {}
 }

@@ -13,8 +13,11 @@ export class WebsocketService {
     // connect to stomp where stomp endpoint is exposed
     const socket = new WebSocket(this.websocketUrl);
     this.ws = this.stomp.over(socket);
+    console.log(socket.readyState);
     this.ws.connect({}, (frame) => {
-      connectedListener();
+      if (socket.readyState === 1) {
+        connectedListener();
+      }
     }, (error) => {
       errorListener(error);
     });
@@ -26,7 +29,7 @@ export class WebsocketService {
 
   disconnect(): void {
     if (this.ws != null) {
-      this.ws.ws.close();
+      this.ws.disconnect();
     }
     this.connected = false;
     console.log('Disconnected');

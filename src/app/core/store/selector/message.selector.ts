@@ -21,3 +21,11 @@ export const selectMessageVisited = createSelector(selectMessage,
 export const selectNewMessage = createSelector(selectMessage,
   (state: MessageState) => state.newMessage
 );
+
+export const selectMessageSeen = createSelector(selectMessage,
+  (state: MessageState) => state.seen
+);
+
+export const selectMessageConversationState = createSelector(selectMessage,
+  (state: MessageState) => state.conversationState
+);

@@ -141,11 +141,20 @@
 
 
 @media only screen and (max-width: 768px){
+
+  .friend-part {
+    padding: 13px 15px;
+  }
+
   .message {
     padding: 2px 15px;
   }
 
   .message.me .text-sec {
     margin-right: 10px;
+  }
+
+  .message.friend .text-sec {
+    margin-left: 10px;
   }
 }
